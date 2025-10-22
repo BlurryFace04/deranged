@@ -19,23 +19,88 @@
             </div>
         </header>
 
+        <!-- Instructions -->
+        <div id="instructions-section" class="section instructions-section">
+            <h2>📖 How to Play</h2>
+            <div class="instructions-grid">
+                <div class="instruction-card">
+                    <div class="instruction-number">1</div>
+                    <h3>Choose a Mode</h3>
+                    <p>Pick Classic for custom couples, Quick Play for random matches, or Daily Challenge to beat the target score!</p>
+                </div>
+                <div class="instruction-card">
+                    <div class="instruction-number">2</div>
+                    <h3>Enter Details</h3>
+                    <p>Input both people's zodiac, MBTI, culture, sleep schedule, kids preference, politics, and diet.</p>
+                </div>
+                <div class="instruction-card">
+                    <div class="instruction-number">3</div>
+                    <h3>Calculate!</h3>
+                    <p>Hit the button and watch the AI calculate their catastrophic incompatibility score (0-100)!</p>
+                </div>
+                <div class="instruction-card">
+                    <div class="instruction-number">4</div>
+                    <h3>Earn XP & Achievements</h3>
+                    <p>Level up, unlock badges, and climb the leaderboard of the most incompatible couples!</p>
+                </div>
+            </div>
+            
+            <div class="keyboard-controls">
+                <h3>⌨️ Keyboard Shortcuts</h3>
+                <div class="controls-grid">
+                    <div class="control-item">
+                        <kbd>R</kbd>
+                        <span>Randomize couples</span>
+                    </div>
+                    <div class="control-item">
+                        <kbd>Enter</kbd>
+                        <span>Calculate match</span>
+                    </div>
+                    <div class="control-item">
+                        <kbd>ESC</kbd>
+                        <span>Back to menu</span>
+                    </div>
+                    <div class="control-item">
+                        <kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd>
+                        <span>Navigate</span>
+                    </div>
+                    <div class="control-item">
+                        <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>
+                        <span>Navigate (Alt)</span>
+                    </div>
+                    <div class="control-item">
+                        <kbd>L</kbd>
+                        <span>View Leaderboard</span>
+                    </div>
+                    <div class="control-item">
+                        <kbd>H</kbd>
+                        <span>View Achievements</span>
+                    </div>
+                    <div class="control-item">
+                        <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd>
+                        <span>Select game mode</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Main Menu -->
         <div id="main-menu" class="section">
             <h2 class="menu-title">🎮 Choose Your Game Mode</h2>
             <div class="game-modes">
-                <div class="game-mode-card" onclick="startMode('classic')">
+                <div class="game-mode-card" onclick="startMode('classic')" tabindex="0" onkeypress="if(event.key==='Enter'||event.key===' ')startMode('classic')">
                     <div class="mode-icon">📝</div>
-                    <h3>Classic Mode</h3>
+                    <h3>Classic Mode <kbd>1</kbd></h3>
                     <p>Create two people and find their derangement score</p>
                 </div>
-                <div class="game-mode-card" onclick="startMode('quickplay')">
+                <div class="game-mode-card" onclick="startMode('quickplay')" tabindex="0" onkeypress="if(event.key==='Enter'||event.key===' ')startMode('quickplay')">
                     <div class="mode-icon">⚡</div>
-                    <h3>Quick Play</h3>
+                    <h3>Quick Play <kbd>2</kbd></h3>
                     <p>Random couples generated instantly!</p>
                 </div>
-                <div class="game-mode-card" onclick="startMode('challenge')">
+                <div class="game-mode-card" onclick="startMode('challenge')" tabindex="0" onkeypress="if(event.key==='Enter'||event.key===' ')startMode('challenge')">
                     <div class="mode-icon">🎯</div>
-                    <h3>Daily Challenge</h3>
+                    <h3>Daily Challenge <kbd>3</kbd></h3>
                     <p>Beat today's incompatibility target!</p>
                     <div class="challenge-target">Target: <span id="daily-target">75+</span></div>
                 </div>
@@ -320,6 +385,7 @@
 
     <script src="game.js"></script>
     <script src="app.js"></script>
+    <script src="keyboard.js"></script>
 </body>
 </html>
 

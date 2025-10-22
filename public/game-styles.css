@@ -1,3 +1,119 @@
+/* Instructions Section */
+.instructions-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.instructions-section h2 {
+    text-align: center;
+    color: #667eea;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+
+.instructions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.instruction-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.instruction-card:hover {
+    transform: translateY(-5px);
+}
+
+.instruction-number {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0 auto 15px;
+}
+
+.instruction-card h3 {
+    color: #667eea;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+.instruction-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Keyboard Controls */
+.keyboard-controls {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.keyboard-controls h3 {
+    text-align: center;
+    color: #667eea;
+    font-size: 1.8em;
+    margin-bottom: 25px;
+}
+
+.controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.control-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #f5f7fa;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.control-item:hover {
+    background: #e8ebf0;
+    transform: translateX(3px);
+}
+
+kbd {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 1em;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(102, 126, 234, 0.3);
+    min-width: 40px;
+    text-align: center;
+    display: inline-block;
+}
+
+.control-item kbd:not(:last-of-type) {
+    margin-right: 5px;
+}
+
+.control-item span {
+    color: #555;
+    font-weight: 500;
+}
+
 /* Game Mode Styles */
 .menu-title {
     text-align: center;
@@ -39,6 +155,16 @@
     color: #667eea;
     font-size: 1.5em;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.game-mode-card h3 kbd {
+    font-size: 0.6em;
+    padding: 5px 10px;
 }
 
 .game-mode-card p {
@@ -323,9 +449,35 @@
     font-weight: bold;
 }
 
+/* Focus styles for keyboard navigation */
+button:focus, 
+input:focus, 
+select:focus, 
+.game-mode-card:focus {
+    outline: 3px solid #667eea;
+    outline-offset: 3px;
+}
+
+.game-mode-card {
+    outline: none;
+}
+
+.game-mode-card:focus {
+    border-color: #667eea;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+}
+
 /* Responsive Updates */
 @media (max-width: 768px) {
     .game-modes {
+        grid-template-columns: 1fr;
+    }
+    
+    .instructions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .controls-grid {
         grid-template-columns: 1fr;
     }
     
@@ -356,6 +508,11 @@
     
     .random-button, .match-button {
         width: 100%;
+    }
+    
+    kbd {
+        padding: 6px 10px;
+        font-size: 0.9em;
     }
 }
 
