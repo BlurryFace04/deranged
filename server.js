@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const OpenAI = require('openai');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -8,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
@@ -238,10 +239,21 @@ Each day should be 1-2 sentences and highlight their incompatibilities in a humo
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`🎲 Deranged Marriage Game running on http://localhost:${PORT}`);
-  if (!process.env.OPENAI_API_KEY) {
-    console.warn('⚠️  WARNING: OPENAI_API_KEY not set in .env file');
-  }
+// Serve index.html for root route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+// Export the Express app for Vercel serverless
+module.exports = app;
+
+// Only start server if not in Vercel environment
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`🎲 Deranged Marriage Game running on http://localhost:${PORT}`);
+    if (!process.env.OPENAI_API_KEY) {
+      console.warn('⚠️  WARNING: OPENAI_API_KEY not set in .env file');
+    }
+  });
+}
 
