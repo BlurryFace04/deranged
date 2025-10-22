@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const OpenAI = require('openai');
 const path = require('path');
 require('dotenv').config();
@@ -7,9 +9,27 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Security middleware
+app.use(helmet({
+  contentSecurityPolicy: false, // Disable CSP as we use inline scripts
+}));
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '10kb' })); // Limit body size
+
+// Rate limiting - max 20 requests per minute per IP
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20,
+  message: { error: 'Too many requests, please try again later.' }
+});
+
+app.use('/api/', limiter);
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Validate OpenAI API key
+if (!process.env.OPENAI_API_KEY) {
+  console.error('❌ ERROR: OPENAI_API_KEY is not set');
+}
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
@@ -160,7 +180,23 @@ function generateDealBreakerBingo(person1, person2) {
 // API endpoint for matching
 app.post('/api/match', async (req, res) => {
   try {
+    // Validate API key
+    if (!process.env.OPENAI_API_KEY) {
+      return res.status(500).json({ 
+        error: 'Server configuration error',
+        message: 'OpenAI API key not configured' 
+      });
+    }
+
     const { person1, person2 } = req.body;
+    
+    // Validate input
+    if (!person1 || !person2) {
+      return res.status(400).json({ 
+        error: 'Invalid request',
+        message: 'Both person1 and person2 are required' 
+      });
+    }
     
     // Calculate derangement index
     const result = calculateDerangementIndex(person1, person2);
@@ -216,7 +252,8 @@ Each day should be 1-2 sentences and highlight their incompatibilities in a humo
         }
       ],
       temperature: 0.8,
-      max_tokens: 500
+      max_tokens: 500,
+      timeout: 30000 // 30 second timeout
     });
     
     const weekFromHell = completion.choices[0].message.content;
@@ -232,11 +269,38 @@ Each day should be 1-2 sentences and highlight their incompatibilities in a humo
     
   } catch (error) {
     console.error('Error:', error);
+    
+    // Handle specific OpenAI errors
+    if (error.code === 'insufficient_quota') {
+      return res.status(503).json({ 
+        error: 'Service temporarily unavailable',
+        message: 'OpenAI API quota exceeded. Please try again later.' 
+      });
+    }
+    
+    if (error.code === 'invalid_api_key') {
+      return res.status(500).json({ 
+        error: 'Server configuration error',
+        message: 'Invalid API key configuration' 
+      });
+    }
+    
     res.status(500).json({ 
       error: 'Failed to generate match',
-      message: error.message 
+      message: process.env.NODE_ENV === 'production' 
+        ? 'An error occurred while processing your request' 
+        : error.message 
     });
   }
+});
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    apiKeyConfigured: !!process.env.OPENAI_API_KEY
+  });
 });
 
 // Serve index.html for root route
