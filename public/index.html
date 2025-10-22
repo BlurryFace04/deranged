@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💔 Deranged Marriage Matcher</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="game-styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💔 DERANGED MARRIAGE 💔</h1>
+            <p class="tagline">The opposite of arranged marriage - scientifically matching the LEAST compatible couples!</p>
+            <div class="player-stats">
+                <div class="stat">🏆 Best Score: <span id="best-score">0</span></div>
+                <div class="stat">🎯 Matches: <span id="total-matches">0</span></div>
+                <div class="stat">⭐ Level: <span id="player-level">1</span></div>
+            </div>
+        </header>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="section">
+            <h2 class="menu-title">🎮 Choose Your Game Mode</h2>
+            <div class="game-modes">
+                <div class="game-mode-card" onclick="startMode('classic')">
+                    <div class="mode-icon">📝</div>
+                    <h3>Classic Mode</h3>
+                    <p>Create two people and find their derangement score</p>
+                </div>
+                <div class="game-mode-card" onclick="startMode('quickplay')">
+                    <div class="mode-icon">⚡</div>
+                    <h3>Quick Play</h3>
+                    <p>Random couples generated instantly!</p>
+                </div>
+                <div class="game-mode-card" onclick="startMode('challenge')">
+                    <div class="mode-icon">🎯</div>
+                    <h3>Daily Challenge</h3>
+                    <p>Beat today's incompatibility target!</p>
+                    <div class="challenge-target">Target: <span id="daily-target">75+</span></div>
+                </div>
+            </div>
+            
+            <button class="secondary-button" onclick="showLeaderboard()">🏆 Leaderboard</button>
+            <button class="secondary-button" onclick="showAchievements()">⭐ Achievements</button>
+        </div>
+
+        <!-- Achievements Panel -->
+        <div id="achievements-section" class="section hidden">
+            <div class="section-header">
+                <h2>⭐ Achievements</h2>
+                <button onclick="backToMenu()" class="back-button">← Back</button>
+            </div>
+            <div id="achievements-grid" class="achievements-grid"></div>
+        </div>
+
+        <!-- Leaderboard Panel -->
+        <div id="leaderboard-section" class="section hidden">
+            <div class="section-header">
+                <h2>🏆 Hall of Incompatibility</h2>
+                <button onclick="backToMenu()" class="back-button">← Back</button>
+            </div>
+            <div id="leaderboard-list" class="leaderboard-list"></div>
+        </div>
+
+        <!-- Challenge Info -->
+        <div id="challenge-info" class="challenge-banner hidden">
+            <div class="challenge-text">
+                🎯 <strong>Challenge Mode:</strong> <span id="challenge-description"></span>
+            </div>
+        </div>
+
+        <div id="input-section" class="section hidden">
+            <div class="people-container">
+                <!-- Person 1 -->
+                <div class="person-card">
+                    <h2>👤 Person 1</h2>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="name1" placeholder="Enter name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Zodiac Sign</label>
+                        <select id="zodiac1">
+                            <option value="Aries">♈ Aries</option>
+                            <option value="Taurus">♉ Taurus</option>
+                            <option value="Gemini">♊ Gemini</option>
+                            <option value="Cancer">♋ Cancer</option>
+                            <option value="Leo">♌ Leo</option>
+                            <option value="Virgo">♍ Virgo</option>
+                            <option value="Libra">♎ Libra</option>
+                            <option value="Scorpio">♏ Scorpio</option>
+                            <option value="Sagittarius">♐ Sagittarius</option>
+                            <option value="Capricorn">♑ Capricorn</option>
+                            <option value="Aquarius">♒ Aquarius</option>
+                            <option value="Pisces">♓ Pisces</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>MBTI Type</label>
+                        <select id="mbti1">
+                            <option value="INTJ">INTJ - The Architect</option>
+                            <option value="INTP">INTP - The Logician</option>
+                            <option value="ENTJ">ENTJ - The Commander</option>
+                            <option value="ENTP">ENTP - The Debater</option>
+                            <option value="INFJ">INFJ - The Advocate</option>
+                            <option value="INFP">INFP - The Mediator</option>
+                            <option value="ENFJ">ENFJ - The Protagonist</option>
+                            <option value="ENFP">ENFP - The Campaigner</option>
+                            <option value="ISTJ">ISTJ - The Logistician</option>
+                            <option value="ISFJ">ISFJ - The Defender</option>
+                            <option value="ESTJ">ESTJ - The Executive</option>
+                            <option value="ESFJ">ESFJ - The Consul</option>
+                            <option value="ISTP">ISTP - The Virtuoso</option>
+                            <option value="ISFP">ISFP - The Adventurer</option>
+                            <option value="ESTP">ESTP - The Entrepreneur</option>
+                            <option value="ESFP">ESFP - The Entertainer</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Cultural Background</label>
+                        <input type="text" id="culture1" placeholder="e.g., Japanese, Italian, etc.">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Chronotype</label>
+                        <select id="chronotype1">
+                            <option value="Early Bird">🌅 Early Bird</option>
+                            <option value="Night Owl">🦉 Night Owl</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Wants Kids?</label>
+                        <select id="kids1">
+                            <option value="true">👶 Yes</option>
+                            <option value="false">🚫 No</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Political Leaning (0 = Far Left, 10 = Far Right)</label>
+                        <input type="range" id="politics1" min="0" max="10" value="5">
+                        <span id="politics1-value" class="range-value">5</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Diet</label>
+                        <select id="diet1">
+                            <option value="Omnivore">🍖 Omnivore</option>
+                            <option value="Vegetarian">🥗 Vegetarian</option>
+                            <option value="Vegan">🌱 Vegan</option>
+                            <option value="Carnivore">🥩 Carnivore</option>
+                            <option value="Pescatarian">🐟 Pescatarian</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- VS Divider -->
+                <div class="vs-divider">
+                    <span>VS</span>
+                </div>
+
+                <!-- Person 2 -->
+                <div class="person-card">
+                    <h2>👤 Person 2</h2>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="name2" placeholder="Enter name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Zodiac Sign</label>
+                        <select id="zodiac2">
+                            <option value="Aries">♈ Aries</option>
+                            <option value="Taurus">♉ Taurus</option>
+                            <option value="Gemini">♊ Gemini</option>
+                            <option value="Cancer">♋ Cancer</option>
+                            <option value="Leo">♌ Leo</option>
+                            <option value="Virgo">♍ Virgo</option>
+                            <option value="Libra">♎ Libra</option>
+                            <option value="Scorpio">♏ Scorpio</option>
+                            <option value="Sagittarius">♐ Sagittarius</option>
+                            <option value="Capricorn">♑ Capricorn</option>
+                            <option value="Aquarius">♒ Aquarius</option>
+                            <option value="Pisces">♓ Pisces</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>MBTI Type</label>
+                        <select id="mbti2">
+                            <option value="INTJ">INTJ - The Architect</option>
+                            <option value="INTP">INTP - The Logician</option>
+                            <option value="ENTJ">ENTJ - The Commander</option>
+                            <option value="ENTP">ENTP - The Debater</option>
+                            <option value="INFJ">INFJ - The Advocate</option>
+                            <option value="INFP">INFP - The Mediator</option>
+                            <option value="ENFJ">ENFJ - The Protagonist</option>
+                            <option value="ENFP">ENFP - The Campaigner</option>
+                            <option value="ISTJ">ISTJ - The Logistician</option>
+                            <option value="ISFJ">ISFJ - The Defender</option>
+                            <option value="ESTJ">ESTJ - The Executive</option>
+                            <option value="ESFJ">ESFJ - The Consul</option>
+                            <option value="ISTP">ISTP - The Virtuoso</option>
+                            <option value="ISFP">ISFP - The Adventurer</option>
+                            <option value="ESTP">ESTP - The Entrepreneur</option>
+                            <option value="ESFP">ESFP - The Entertainer</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Cultural Background</label>
+                        <input type="text" id="culture2" placeholder="e.g., Brazilian, French, etc.">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Chronotype</label>
+                        <select id="chronotype2">
+                            <option value="Early Bird">🌅 Early Bird</option>
+                            <option value="Night Owl">🦉 Night Owl</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Wants Kids?</label>
+                        <select id="kids2">
+                            <option value="true">👶 Yes</option>
+                            <option value="false">🚫 No</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Political Leaning (0 = Far Left, 10 = Far Right)</label>
+                        <input type="range" id="politics2" min="0" max="10" value="5">
+                        <span id="politics2-value" class="range-value">5</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Diet</label>
+                        <select id="diet2">
+                            <option value="Omnivore">🍖 Omnivore</option>
+                            <option value="Vegetarian">🥗 Vegetarian</option>
+                            <option value="Vegan">🌱 Vegan</option>
+                            <option value="Carnivore">🥩 Carnivore</option>
+                            <option value="Pescatarian">🐟 Pescatarian</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button id="randomize-btn" class="random-button">
+                    🎲 Randomize Both
+                </button>
+                <button id="match-btn" class="match-button">
+                    🔥 Calculate Derangement Index
+                </button>
+            </div>
+            
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Calculating incompatibilities...</p>
+            </div>
+        </div>
+
+        <div id="results-section" class="section hidden">
+            <div class="results-header">
+                <h2>💥 MATCH RESULTS 💥</h2>
+                <button id="reset-btn" class="reset-button">↺ Try Another Match</button>
+            </div>
+
+            <!-- Achievement Notification -->
+            <div id="achievement-popup" class="achievement-popup hidden">
+                <div class="achievement-content">
+                    <div class="achievement-icon">🏆</div>
+                    <div class="achievement-title">Achievement Unlocked!</div>
+                    <div class="achievement-name" id="achievement-name"></div>
+                </div>
+            </div>
+
+            <div class="derangement-score">
+                <div class="score-label">DERANGEMENT INDEX</div>
+                <div class="score-value" id="score">0</div>
+                <div class="score-bar">
+                    <div class="score-fill" id="score-fill"></div>
+                </div>
+                <div class="score-description" id="score-description"></div>
+                <div class="bonus-points hidden" id="bonus-section">
+                    <div class="bonus-item">Base Score: <span id="base-score">0</span></div>
+                    <div class="bonus-item bonus-highlight">🎉 Bonuses: <span id="bonus-points">+0</span></div>
+                    <div class="bonus-item total">Total XP: <span id="total-xp">0</span></div>
+                </div>
+            </div>
+
+            <div class="top-incompatibilities">
+                <h3>🔥 Top 3 Incompatibilities</h3>
+                <div id="incompatibilities-list"></div>
+            </div>
+
+            <div class="deal-breaker-bingo">
+                <h3>🎯 Deal-Breaker Bingo</h3>
+                <div class="bingo-grid" id="bingo-grid"></div>
+            </div>
+
+            <div class="week-from-hell">
+                <h3>📅 Week From Hell Preview</h3>
+                <div id="week-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>💔 Deranged Marriage - Where incompatibility is celebrated! 💔</p>
+        <p class="disclaimer">⚠️ For entertainment purposes only. Please don't actually use this for life decisions. ⚠️</p>
+    </footer>
+
+    <script src="game.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+

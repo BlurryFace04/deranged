@@ -1,0 +1,361 @@
+/* Game Mode Styles */
+.menu-title {
+    text-align: center;
+    color: #667eea;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+
+.game-modes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.game-mode-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8ebf0 100%);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 3px solid transparent;
+}
+
+.game-mode-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    border-color: #667eea;
+}
+
+.mode-icon {
+    font-size: 4em;
+    margin-bottom: 15px;
+}
+
+.game-mode-card h3 {
+    color: #667eea;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.game-mode-card p {
+    color: #666;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+.challenge-target {
+    margin-top: 15px;
+    padding: 10px;
+    background: #667eea;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.secondary-button {
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.secondary-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Achievements Styles */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.back-button {
+    padding: 10px 20px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.back-button:hover {
+    background: #5568d3;
+    transform: translateX(-3px);
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.achievement-card {
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.achievement-card.unlocked {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: white;
+    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+}
+
+.achievement-card.locked {
+    background: #f0f0f0;
+    color: #999;
+}
+
+.achievement-icon-large {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.achievement-card h4 {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+.achievement-card p {
+    font-size: 0.95em;
+    opacity: 0.9;
+}
+
+.unlocked-badge {
+    margin-top: 15px;
+    padding: 5px 15px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+/* Achievement Popup */
+.achievement-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    animation: slideIn 0.5s ease-out;
+}
+
+.achievement-content {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: white;
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(255, 215, 0, 0.6);
+    text-align: center;
+}
+
+.achievement-icon {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.achievement-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.achievement-name {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Leaderboard Styles */
+.leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.leaderboard-entry {
+    display: grid;
+    grid-template-columns: 80px 1fr auto auto;
+    gap: 20px;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8ebf0 100%);
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+
+.leaderboard-entry:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+}
+
+.rank {
+    font-size: 2em;
+    font-weight: bold;
+    color: #667eea;
+    text-align: center;
+}
+
+.couple-name {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #333;
+}
+
+.score-badge {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ff6b6b;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+
+.date {
+    color: #999;
+    font-size: 0.9em;
+}
+
+.empty-leaderboard {
+    text-align: center;
+    color: #999;
+    font-size: 1.2em;
+    padding: 40px;
+}
+
+/* Challenge Banner */
+.challenge-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.challenge-text {
+    font-size: 1.2em;
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.random-button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.random-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+}
+
+.match-button {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Bonus Points Display */
+.bonus-points {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.bonus-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 1.1em;
+}
+
+.bonus-highlight {
+    color: #FFD700;
+    font-weight: bold;
+}
+
+.bonus-item.total {
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+    margin-top: 10px;
+    padding-top: 15px;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+/* Responsive Updates */
+@media (max-width: 768px) {
+    .game-modes {
+        grid-template-columns: 1fr;
+    }
+    
+    .leaderboard-entry {
+        grid-template-columns: 60px 1fr;
+        gap: 10px;
+    }
+    
+    .score-badge {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    
+    .date {
+        grid-column: 2;
+        grid-row: 2;
+        text-align: right;
+    }
+    
+    .achievement-popup {
+        right: 10px;
+        left: 10px;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .random-button, .match-button {
+        width: 100%;
+    }
+}
+
