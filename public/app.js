@@ -61,7 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('match-btn').disabled = true;
 
     try {
-        const response = await fetch('http://localhost:3000/api/match', {
+        // Use relative URL so it works in both development and production
+        const response = await fetch('/api/match', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

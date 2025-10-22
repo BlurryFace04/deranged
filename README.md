@@ -106,6 +106,30 @@ Feel free to fork, modify, and improve! Some ideas for enhancements:
 - Create a database of famous incompatible couples
 - Add sound effects and more animations
 
+## 🚀 Deployment to Vercel
+
+### Quick Deploy
+
+1. Push your code to GitHub (already done!)
+
+2. Go to [Vercel](https://vercel.com) and import your repository
+
+3. Set the environment variable:
+   - Go to Project Settings → Environment Variables
+   - Add: `OPENAI_API_KEY` with your OpenAI API key value
+
+4. Deploy! Vercel will automatically build and deploy your app
+
+### Environment Variable Setup
+
+In Vercel Dashboard:
+```
+Key: OPENAI_API_KEY
+Value: sk-your-actual-openai-api-key-here
+```
+
+Make sure to add it for all environments (Production, Preview, Development).
+
 ## 📝 License
 
 MIT License - feel free to use this for your own projects!
